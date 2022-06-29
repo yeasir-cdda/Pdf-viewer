@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react';
+import { Viewer, Worker } from '@react-pdf-viewer/core';
+import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import '@react-pdf-viewer/core/lib/styles/index.css';
+import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+
+const App = () => {
+    const defaultLayoutPluginInstance = defaultLayoutPlugin();
+
+    return (
+        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.14.305/build/pdf.worker.js">
+            <div
+                style={{
+                    height: '750px',
+                    width: '900px',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                }}
+            >
+                <Viewer
+                    fileUrl='sample.pdf'
+                    plugins={[defaultLayoutPluginInstance]}
+                />
+            </div>
+        </Worker>
+    );
+};
 
 export default App;
